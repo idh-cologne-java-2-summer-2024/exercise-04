@@ -10,7 +10,7 @@ public class ATM {
     int cash = 100;
 
     // accounts known to the ATM
-    Account[] accounts = new Account[5];
+    Account[] accounts = new Account[10];
 
     public ATM() {
 	// create accounts with varying balances
@@ -50,12 +50,11 @@ public class ATM {
 	}
 
 	// check for existence of the account
-	Account account = getAccount(accountNumber);
+	Account account = getAccountInter(accountNumber);
 	if (account == null) {
 	    System.out.println("Sorry, this account doesn't exist.");
 	    return;
 	}
-
 	// check for balance of the account
 	if (amount > account.getBalance()) {
 	    System.out.println("Sorry, you're out of money.");
@@ -83,12 +82,20 @@ public class ATM {
      * @param id
      * @return
      */
-    protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
-	}
-	return null;
+    protected Account getAccountInter(int id) {
+    	while (true) {
+    		AccountIterator iter = new AccountIterator(this);
+    	while (iter.hasNext()) {
+    		if (iter.next().getId() == id) {
+    			return iter.next();
+    		}
+    	}
+    	}
     }
-
+    public int size() {
+    	return accounts.length;
+        }
+    public Account getAccount(int account) {
+	return accounts[account];
+    }
 }
