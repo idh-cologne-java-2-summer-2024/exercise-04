@@ -8,17 +8,23 @@ public class ATM {
 
     // initial cash in the ATM
     int cash = 100;
-
+    int size;
+    Bank bank;
     // accounts known to the ATM
-    Account[] accounts = new Account[10];
 
-    public ATM() {
+    public ATM(Bank bankk) {
 	// create accounts with varying balances
+    bank = bankk;
+    size = bank.getSize();
 	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
+	for (int i = 0; i < bank.getSize(); i++) {
+	   bank.addAccount( new Account(i, random.nextInt(1000)));
+	    
 	}
     }
+    public int size() {
+    	return size;
+        }
 
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -72,7 +78,8 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
+    Bank bank = new Bank("volksbank");
+	ATM atm = new ATM(bank);
 	atm.run();
     };
 
@@ -83,19 +90,14 @@ public class ATM {
      * @return
      */
     protected Account getAccountInter(int id) {
-    	while (true) {
-    		AccountIterator iter = new AccountIterator(this);
-    	while (iter.hasNext()) {
-    		if (iter.next().getId() == id) {
-    			return iter.next();
-    		}
-    	}
-    	}
+    for (Account account: bank) {
+    	if (account.getId() == id) {
+    		return account;
+    	} 
+    } return null;
     }
-    public int size() {
-    	return accounts.length;
-        }
     public Account getAccount(int account) {
-	return accounts[account];
+	return bank.getAccountBank(account);
     }
+  
 }
