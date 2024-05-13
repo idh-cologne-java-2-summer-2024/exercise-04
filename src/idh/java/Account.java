@@ -8,39 +8,31 @@ package idh.java;
  */
 public class Account {
     // the balance of the account
-    int balance;
-
+    private int balance;
+    // the maximum withdrawal amount
+    private int maxWithdrawal;
     // the id of the account
-    int id;
+    private int id;
 
-    public Account(int id, int status) {
-	this.id = id;
-	this.balance = status;
+    public Account(int id, int status, int maxWithdrawal) {
+        this.id = id;
+        this.balance = status;
+        this.maxWithdrawal = maxWithdrawal;
     }
 
     public int getId() {
-	return id;
-    }
-
-    public void setId(int id) {
-	this.id = id;
+        return id;
     }
 
     public int getBalance() {
-	return balance;
+        return balance;
     }
 
-    public void setBalance(int status) {
-	this.balance = status;
+    public int getMaxWithdrawal() {
+        return maxWithdrawal;
     }
 
-    /**
-     * Withdraws a sum of money from the account
-     * 
-     * @param sum
-     */
-    public void withdraw(int sum) {
-	this.balance = balance - sum;
+    public void withdraw(int amount) {
+        balance -= amount;
     }
-
 }
