@@ -1,8 +1,10 @@
 package idh.java;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.Iterator; // Import für den Iterator
 
 public class ATM {
 
@@ -27,7 +29,11 @@ public class ATM {
      * loop breaks and the program exists
      */
     public void run() {
-	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+
+    
+	
 	while (true) {
 	    try {
 		System.out.print("Enter your account number: ");
@@ -90,5 +96,27 @@ public class ATM {
 	}
 	return null;
     }
+    class AccountIterator implements Iterator<Account> {
+        private int currentIndex = 0;
 
+        @Override
+        public boolean hasNext() {
+            return currentIndex < accounts.length && accounts[currentIndex] != null;
+        }
+
+        @Override
+        public Account next() {
+            return accounts[currentIndex++];
+        }
+    }
+    
+    // *** ÄNDERUNG: Methode, um über die Konten zu iterieren ***
+    public void iterateOverAccounts() {
+        AccountIterator iterator = new AccountIterator();
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            // Hier können Sie mit dem aktuellen Konto account arbeiten
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+    }
 }
