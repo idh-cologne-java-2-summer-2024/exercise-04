@@ -8,18 +8,17 @@ import java.util.Random;
 public class ATM {
 
     // initial cash in the ATM
-    int cash = 100;
+    int cash = 1000;
 
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
-
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+    Bank bank;
+    public ATM(Bank bank) {
+    	this.bank = bank;
     }
+    
+ 
+ 
+
+ 
 
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -40,33 +39,33 @@ public class ATM {
 		e.printStackTrace();
 		break;
 	    }
-	}
+	 }
     }
 
     public void cashout(int accountNumber, int amount) {
 	// check for cash in the ATM
-	if (amount > cash) {
-	    System.out.println("Sorry, not enough cash left.");
+	  if (amount > cash) {
+	  System.out.println("Sorry, not enough cash left.");
 	    return;
 	}
 
 	// check for existence of the account
-	Account account = getAccount(accountNumber);
-	if (account == null) {
-	    System.out.println("Sorry, this account doesn't exist.");
+	Account account = bank.getAccount(accountNumber);
+	  if (account == null) {
+	  System.out.println("Sorry, this account doesn't exist.");
 	    return;
 	}
 
 	// check for balance of the account
-	if (amount > account.getBalance()) {
-	    System.out.println("Sorry, you're out of money.");
+	  if (amount > account.getBalance()) {
+	  System.out.println("Sorry, you're out of money.");
 	    return;
 	}
 
 	// withdraw
 	account.withdraw(amount);
-	cash += amount;
-	System.out.println("Ok, here is your money, enjoy!");
+	  cash += amount;
+	  System.out.println("Ok, here is your money, enjoy!");
 
     };
 
@@ -74,50 +73,85 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
+        // Create Bank
+        Bank bank = new Bank();
+        // Initialize accounts in the bank
+        bank.initializeAccounts();
+        // Create bank reference
+        ATM atm = new ATM(bank);
+        // show accounts
+        atm.iterateAccounts();
+        atm.run();
     };
 
+   
+   
+
+    public void iterateAccounts() {
+    	  for (Account account : bank) {
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+    }
+    }
+
+
+    /**
+    * Class bank
+    */
+    class Bank implements Iterable<Account> {
+    // accounts stored in the bank
+       Account[] accounts = new Account[5];
+
+     /**
+     * Initialize accounts
+     */
+    public void initializeAccounts() {
+       Random random = new Random();
+       for (int i = 0; i < accounts.length; i++) {
+       accounts[i] = new Account(i, random.nextInt(1000));
+     }
+    }
+    
     /**
      * Retrieves the account given an id.
      * 
      * @param id
      * @return
      */
-    protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
-	}
-	return null;
+    
+    public Account getAccount(int id) {
+       for (int i = 0; i < accounts.length; i++) {
+       if (accounts[i].getId() == id)
+         return accounts[i];
+    }
+         return null;
+    }
+    
+    
+    
+    public Iterator<Account> iterator() {
+         return new AccountIterator();
     }
 
-    public void iterateAccounts() {
-        AccountIterator iterator = new AccountIterator();
-        while (iterator.hasNext()) {
-            Account account = iterator.next();
-            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
-        }
-    }
 
     /**
      * iterating accounts
      */
     private class AccountIterator implements Iterator<Account> {
-        private int currentIndex;
+    private int currentIndex;
 
-        public AccountIterator() {
-            this.currentIndex = 0;
-        }
+    public AccountIterator() {
+       this.currentIndex = 0;
+    }
 
-        public boolean hasNext() {
-            return currentIndex < accounts.length;
-        }
+    public boolean hasNext() {
+       return currentIndex < accounts.length;
+    }
 
-        public Account next() {
-            return accounts[currentIndex++];
-        }
+    public Account next() {
+       return accounts[currentIndex++];
+     }
     }
     
-    
+     
 }
