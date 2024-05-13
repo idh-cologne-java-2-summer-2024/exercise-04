@@ -1,12 +1,14 @@
 package idh.java;
 
+import java.util.Iterator;
+
 /**
  * This class represents an account in our bank.
  * 
  * @author reiterns
  *
  */
-public class Account {
+public class Account implements Iterable <Account> {
     // the balance of the account
     int balance;
 
@@ -42,5 +44,13 @@ public class Account {
     public void withdraw(int sum) {
 	this.balance = balance - sum;
     }
+
+	@Override
+	public Iterator<Account> iterator() {
+		// TODO Auto-generated method stub
+		return new AccountIterator();
+	}
+
+	
 
 }
