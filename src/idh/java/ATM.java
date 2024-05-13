@@ -78,23 +78,6 @@ public class ATM {
 	atm.run();
     };
 
-    /*
-    * Bank class to store accounts
-    *
-   static class Bank implements Iterable<Account> {
-       // accounts known to the bank
-       Account[] accounts = new Account[5];
-
-       public Bank() {
-           // create accounts with varying balances
-           java.util.Random random = new java.util.Random();
-           for (int i = 0; i < accounts.length; i++) {
-               accounts[i] = new Account(i, random.nextInt(1000));
-           }
-       }
-       */
-    
-    
     /**
      * Retrieves the account given an id.
      * 
