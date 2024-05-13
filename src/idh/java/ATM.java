@@ -2,7 +2,6 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 
@@ -12,13 +11,14 @@ public class ATM {
     // accounts known to the ATM
     Account[] accounts = new Account[5];
 
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+	//private Object bank;
+
+	private Bank bank;
+    
+    public ATM () {
+    	this.bank = bank;
     }
+
 
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -90,5 +90,21 @@ public class ATM {
 	}
 	return null;
     }
-
+    
+    //zugriff auf das konto über while Schleife
+    public void printAllAccounts() {
+        AccountIterator iterator = new AccountIterator(accounts);
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            System.out.println(account);
+            
+        }
+    }
+    
+    //aufgabe 2
+    public void printAllAccountsNeu () {
+    	for (Account account : bank) {
+    		System.out.println (account);
+    	}
+    }
 }

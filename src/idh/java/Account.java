@@ -3,7 +3,7 @@ package idh.java;
 /**
  * This class represents an account in our bank.
  * 
- * @author reiterns
+ * @author deeeeezy
  *
  */
 public class Account {
