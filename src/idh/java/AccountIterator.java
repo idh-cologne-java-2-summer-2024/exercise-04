@@ -7,22 +7,22 @@ import java.util.Iterator;
 public class AccountIterator implements Iterator<Account>{
 
 
-	    ATM atm;
+	   Bank bank;
 	    int currentPosition = -1; // i
 
-	    public AccountIterator(ATM atm) {
-		this.atm = atm;
+	    public AccountIterator(Bank bank) {
+		this.bank = bank;
 	    }
 
 	    @Override
 	    public boolean hasNext() {
-		return currentPosition < atm.size() - 1;
+		return currentPosition < bank.size() - 1;
 	    }
 
 	    @Override
 	    public Account next() {
 		currentPosition++;
-		return atm.getAcc(currentPosition);
+		return bank.getAcc(currentPosition);
 	    }
 
 }
