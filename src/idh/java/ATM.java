@@ -82,6 +82,8 @@ public class ATM {
     
     AccountIterator accIterator = new AccountIterator();
 
+    while (accIterator.hasNext()) {
+	    System.out.println(accIterator.next().getId());
     
     /**
      * Retrieves the account given an id.
