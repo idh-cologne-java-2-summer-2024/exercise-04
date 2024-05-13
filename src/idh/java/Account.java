@@ -13,7 +13,7 @@ public class Account {
     // the id of the account
     int id;
 
-    public Account(int id, int status) {
+    public Account(int id, int status) { //Konstruktur
 	this.id = id;
 	this.balance = status;
     }
@@ -33,7 +33,8 @@ public class Account {
     public void setBalance(int status) {
 	this.balance = status;
     }
-
+    
+    
     /**
      * Withdraws a sum of money from the account
      * 
