@@ -7,18 +7,51 @@ import java.util.Random;
 public class ATM {
 
     // initial cash in the ATM
-    int cash = 100;
+    int cash = 1000;
 
     // accounts known to the ATM
-    Account[] accounts = new Account[5];
+    Account[] accounts;
+    
+    
+    int nextPosition = 0;
 
-    public ATM() {
+    public ATM(int numberOfAccounts) {
 	// create accounts with varying balances
+   this.accounts = new Account[numberOfAccounts];
 	Random random = new Random();
 	for (int i = 0; i < accounts.length; i++) {
 	    accounts[i] = new Account(i, random.nextInt(1000));
 	}
+	
     }
+    
+    public int size() {
+    	return accounts.length;
+        }
+
+        public Account getAcc(int account) {
+    	return accounts[account];
+        }
+
+       
+    
+    public void addAccount(int id, int status) throws Exception {
+    	if (nextPosition < accounts.length)
+    	    accounts[nextPosition++] = new Account(id,status);
+    	else
+    	    throw new Exception("Class full");
+        }
+    public String getDescription() {
+    	StringBuilder buf = new StringBuilder();
+    	buf.append(("ATM Management "+'\n'));
+    	    buf.append('-');
+    	buf.append('\n');
+    	buf.append("Accounts: ");
+    	buf.append(accounts);
+    	buf.append('\n');
+    	return buf.toString();
+        }
+
 
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -41,6 +74,7 @@ public class ATM {
 	    }
 	}
     }
+    
 
     public void cashout(int accountNumber, int amount) {
 	// check for cash in the ATM
@@ -71,11 +105,22 @@ public class ATM {
 
     /**
      * Launches the ATM
+     * @throws Exception 
      */
-    public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
-    };
+    public static void main(String[] args) throws Exception {
+	ATM test = new ATM(10);
+	test.run();
+
+	System.out.println(test.getDescription());
+
+	AccountIterator iter = new AccountIterator(test);
+
+	while (iter.hasNext()) {
+	    System.out.println(iter.next().getId() );
+	}
+	System.out.println();
+
+    }
 
     /**
      * Retrieves the account given an id.
