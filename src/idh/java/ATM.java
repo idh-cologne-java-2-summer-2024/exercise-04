@@ -46,7 +46,7 @@ public class ATM {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				System.out.print("Enter your account number: ");
+				System.out.print("There are " + accs.size() + "accounts registered"+ "Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
 				System.out.print("Current balance: " + accs.get(accountNumber).balance + "\nEnter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
@@ -90,7 +90,7 @@ public class ATM {
 	 */
 	public static void main(String[] args) {
 		ATM atm = new ATM();
-//		System.out.println(atm.accs.get(0).balance); this seems to work
+//		System.out.println(atm.accs.get(0).balance); //this seems to work
 		atm.run();
 			
 	};
