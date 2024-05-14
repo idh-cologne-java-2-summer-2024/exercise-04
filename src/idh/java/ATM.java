@@ -3,18 +3,14 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.Random;
 
 public class ATM {
 
-    int cash = 1000;
-    Account[] accounts = new Account[5];
+    int cash = 100;
+    Bank bank;
 
-    public ATM() {
-        Random random = new Random();
-        for (int i = 0; i < accounts.length; i++) {
-            accounts[i] = new Account(i, random.nextInt(1000));
-        }
+    public ATM(Bank bank) {
+        this.bank = bank;
     }
 
     public void run() {
@@ -38,45 +34,34 @@ public class ATM {
             System.out.println("Sorry, not enough cash left.");
             return;
         }
-        Account account = getAccount(accountNumber);
+
+        Account account = null;
+        for (Account acc : bank) {
+            if (acc.getId() == accountNumber) {
+                account = acc;
+                break;
+            }
+        }
+
         if (account == null) {
             System.out.println("Sorry, this account doesn't exist.");
             return;
         }
+
         if (amount > account.getBalance()) {
             System.out.println("Sorry, you're out of money.");
             return;
         }
+
         account.withdraw(amount);
         cash += amount;
         System.out.println("Ok, here is your money, enjoy!");
+
     }
 
     public static void main(String[] args) {
-        ATM atm = new ATM();
+        Bank bank = new Bank(5);
+        ATM atm = new ATM(bank);
         atm.run();
-    }
-
-    protected Account getAccount(int id) {
-        for (int i = 0; i < accounts.length; i++) {
-            if (accounts[i].getId() == id)
-                return accounts[i];
-        }
-        return null;
-    }
-
-    class AccountIterator implements Iterator<Account> {
-
-        private int currentIndex = 0;
-
-        @Override
-        public boolean hasNext() {
-            return currentIndex < accounts.length && accounts[currentIndex] != null;
-        }
-
-        @Override
-        public Account next() {
-            return accounts[currentIndex++];
-        }
     }
 }
