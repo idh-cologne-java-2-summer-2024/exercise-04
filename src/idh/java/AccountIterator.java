@@ -4,21 +4,26 @@ import java.util.Iterator;
 public class AccountIterator implements Iterator<Account> {
 
 	
-	ATM atm;
+	public Account [] accounts;
+	int currentPosition;
 	
-	int currentPosition = -1;
+	public AccountIterator(Account[] accounts) {
+		this.accounts = accounts;
+		int currentPosition = 0;
+	}
 	
+
 
 
 	@Override
 	public boolean hasNext() {
-		return currentPosition < atm.size() - 1;
+		return currentPosition < accounts.length;
 	}
 
 	@Override
 	public Account next() {
-		currentPosition++;
-		return atm.getAccount(currentPosition);
+		Account returnAccount = accounts[currentPosition];
+		return null;
 	}
 
 	
