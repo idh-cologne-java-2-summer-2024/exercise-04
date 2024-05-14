@@ -84,8 +84,9 @@ public class ATM {
      * @return
      */
     protected Account getAccount(int id) {
+    	AccountIterator iter = new AccounIterator(accounts);
 	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
+	    if (current.id == id)
 		return accounts[i];
 	}
 	return null;
