@@ -1,5 +1,8 @@
 package idh.java;
 
-public class Bank {
+public class Bank  implements Iterator<Account>{ 
+	
+	for
+	
 
 }
