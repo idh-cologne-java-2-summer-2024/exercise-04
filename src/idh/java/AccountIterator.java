@@ -17,7 +17,7 @@ public class AccountIterator implements Iterator <Account[]> {
 	}
 
 	@Override
-	public Account[] next() {
+	public Account next() {
 		currentPosition++;
 		return accounts[currentPosition];
 	}
