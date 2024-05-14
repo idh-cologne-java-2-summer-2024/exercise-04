@@ -17,7 +17,7 @@ public class ATM {
 	Random random = new Random();
 	for (int i = 0; i < accounts.length; i++) {
 	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+		}
     }
 
     /**
@@ -67,7 +67,7 @@ public class ATM {
 	cash += amount;
 	System.out.println("Ok, here is your money, enjoy!");
 
-    };
+    }
 
     /**
      * Launches the ATM
@@ -89,6 +89,17 @@ public class ATM {
 		return accounts[i];
 	}
 	return null;
+    }
+    
+    /**
+     * Iterating over accounts using the AccountIterator
+     */
+    public void iterateAccounts() {
+        AccountIterator iterator = new AccountIterator(accounts);
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
     }
 
 }
