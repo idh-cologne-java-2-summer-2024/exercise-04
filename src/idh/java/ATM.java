@@ -73,8 +73,9 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
+    	Bank sparkasse = new Bank(250);
+    	ATM atm = new ATM(sparkasse);
+    	atm.run();
     };
 
     /**
@@ -89,6 +90,7 @@ public class ATM {
     	
     	while(iter.hasNext()) {
     		Account current = iter.next();
+    		
     	if(current.id == id) {
     		return current;
     	}
