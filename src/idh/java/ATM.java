@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class ATM {
 
-    int cash = 1000;
+    int cash = 100;
     Account[] accounts = new Account[5];
 
     public ATM() {
