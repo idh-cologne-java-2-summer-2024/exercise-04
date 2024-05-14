@@ -2,23 +2,17 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
-import java.util.Iterator;
 
 public class ATM {
 
     // initial cash in the ATM
-    int cash = 100;
+    private int cash;
+    private Bank bank;
 
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
-
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+    public ATM(Bank bank) {
+    	this.bank = bank;
+        // Initialisierung der Bargeldmenge
+        this.cash = 100;
     }
 
     /**
@@ -36,14 +30,6 @@ public class ATM {
 		System.out.print("Enter the amount to withdraw: ");
 		int amount = Integer.parseInt(br.readLine());
 		cashout(accountNumber, amount);
-		
-		//Iteration
-		Iterator<Account> iterator = new AccountIterator(accounts);
-        while(iterator.hasNext()) {
-            Account account = iterator.next();
-            // Hier kann man etwas mit dem Konto machen
-            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
-        }
 		
 	    } catch (Exception e) {
 		e.printStackTrace();
@@ -77,28 +63,15 @@ public class ATM {
 	cash += amount;
 	System.out.println("Ok, here is your money, enjoy!");
 
-    };
-
-    /**
-     * Launches the ATM
-     */
-    public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
-    };
-
-    /**
-     * Retrieves the account given an id.
-     * 
-     * @param id
-     * @return
-     */
-    protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
-	}
-	return null;
     }
-
+    
+    private Account getAccount(int accountNumber) {
+        // Durchsuchen der Konten in der Bank nach der angegebenen Kontonummer
+        for (Account account : bank.getAccounts()) {
+            if (account.getId() == accountNumber) {
+                return account;
+            }
+        }
+        return null; // Konto nicht gefunden
+    }
 }

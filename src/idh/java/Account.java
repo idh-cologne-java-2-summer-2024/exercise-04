@@ -1,21 +1,14 @@
 package idh.java;
 
-/**
- * This class represents an account in our bank.
- * 
- * @author reiterns
- *
- */
+//This class represents an account in our bank.
+ 
 public class Account {
-    // the balance of the account
-    int balance;
+	private int id;
+	private int balance;
 
-    // the id of the account
-    int id;
-
-    public Account(int id, int status) {
+    public Account(int id, int balance) {
 	this.id = id;
-	this.balance = status;
+	this.balance = balance;
     }
 
     public int getId() {
@@ -30,8 +23,8 @@ public class Account {
 	return balance;
     }
 
-    public void setBalance(int status) {
-	this.balance = status;
+    public void setBalance(int balance) {
+	this.balance = balance;
     }
 
     /**
@@ -39,8 +32,8 @@ public class Account {
      * 
      * @param sum
      */
-    public void withdraw(int sum) {
-	this.balance = balance - sum;
+    public void withdraw(int amount) {
+	balance -= amount;
     }
 
 }
