@@ -11,6 +11,7 @@ public class ATM {
 
     // accounts known to the ATM
     Account[] accounts = new Account[5];
+   
 
     public ATM() {
 	// create accounts with varying balances
@@ -41,7 +42,7 @@ public class ATM {
 	    }
 	}
     }
-
+    
     public void cashout(int accountNumber, int amount) {
 	// check for cash in the ATM
 	if (amount > cash) {
@@ -66,7 +67,7 @@ public class ATM {
 	account.withdraw(amount);
 	cash += amount;
 	System.out.println("Ok, here is your money, enjoy!");
-
+	
     };
 
     /**
@@ -75,7 +76,8 @@ public class ATM {
     public static void main(String[] args) {
 	ATM atm = new ATM();
 	atm.run();
-    };
+	};
+
 
     /**
      * Retrieves the account given an id.

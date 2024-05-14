@@ -6,7 +6,7 @@ package idh.java;
  * @author reiterns
  *
  */
-public class Account {
+public class Account extends ATM {
     // the balance of the account
     int balance;
 
@@ -33,6 +33,7 @@ public class Account {
     public void setBalance(int status) {
 	this.balance = status;
     }
+    
 
     /**
      * Withdraws a sum of money from the account
@@ -43,4 +44,6 @@ public class Account {
 	this.balance = balance - sum;
     }
 
+    
+   
 }
