@@ -1,23 +1,19 @@
 package idh.java;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 
     // initial cash in the ATM
     int cash = 100;
 
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
+    
+    Bank myBank;
+    
 
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+    public ATM(Bank bank) {
+    	myBank = bank;
     }
 
     /**
@@ -73,7 +69,7 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
+	ATM atm = new ATM(new Bank());
 	atm.run();
     };
 
@@ -84,11 +80,9 @@ public class ATM {
      * @return
      */
     protected Account getAccount(int id) {
-    	AccountIterator iter = new AccountIterator(accounts);
-    	while(iter.hasNext()) {
-    		Account next = iter.next();
-    		if(next.getId() == id) {
-    			return next;
+    	for(Account account: myBank) {
+    		if(account.id == id) {
+    			return account;
     		}
     	}
     	return null;
