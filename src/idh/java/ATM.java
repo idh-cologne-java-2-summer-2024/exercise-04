@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 public class ATM {
+	
+	private Bank bank;
 
     // initial cash in the ATM
     int cash = 100;
@@ -12,12 +14,8 @@ public class ATM {
     // accounts known to the ATM
     Account[] accounts = new Account[5];
 
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+    public ATM(Bank b) {
+	// verstehe nicht was hier rein soll :(
     }
 
     /**
@@ -74,7 +72,7 @@ public class ATM {
      */
     public static void main(String[] args) {
     	
-   
+    Bank bank = new Bank(20);
 	ATM atm = new ATM();
 
 	
