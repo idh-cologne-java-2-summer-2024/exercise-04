@@ -84,11 +84,14 @@ public class ATM {
      * @return
      */
     protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
-	}
-	return null;
+    	AccountIterator iter = new AccountIterator(accounts);
+    	while(iter.hasNext()) {
+    		Account next = iter.next();
+    		if(next.getId() == id) {
+    			return next;
+    		}
+    	}
+    	return null;
     }
 
 }
