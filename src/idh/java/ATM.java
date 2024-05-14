@@ -3,6 +3,7 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.Iterator;
 
 public class ATM {
 
@@ -35,6 +36,15 @@ public class ATM {
 		System.out.print("Enter the amount to withdraw: ");
 		int amount = Integer.parseInt(br.readLine());
 		cashout(accountNumber, amount);
+		
+		//Iteration
+		Iterator<Account> iterator = new AccountIterator(accounts);
+        while(iterator.hasNext()) {
+            Account account = iterator.next();
+            // Hier kann man etwas mit dem Konto machen
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+		
 	    } catch (Exception e) {
 		e.printStackTrace();
 		break;
