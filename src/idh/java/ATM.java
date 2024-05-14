@@ -2,6 +2,8 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class ATM {
@@ -74,6 +76,7 @@ public class ATM {
      */
     public static void main(String[] args) {
 	ATM atm = new ATM();
+	atm.accessAccounts1();
 	atm.run();
     };
 
@@ -90,5 +93,68 @@ public class ATM {
 	}
 	return null;
     }
+ // ...
+    private class AccountIterator implements Iterator<Account> {
+        private int currentIndex = 0;
 
+        @Override
+        public boolean hasNext() {
+            return currentIndex < accounts.length && accounts[currentIndex] != null;
+        }
+
+        @Override
+        public Account next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return accounts[currentIndex++];
+        }
+    }
+
+    // Method to retrieve an iterator for accounts
+    public Iterator<Account> getAccountIterator1() {
+        return new AccountIterator();
+    }
+
+    // Accessing accounts using while loop and iterator
+    public void accessAccounts1() {
+        Iterator<Account> iterator = getAccountIterator1();
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            // Do something with the account
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+    }
+    
+    // AccountIterator
+    private class AccountIterator1 implements Iterator<Account> {
+        private int currentIndex = 0;
+        @Override
+        public boolean hasNext() {
+            return currentIndex < accounts.length && accounts[currentIndex] != null;
+        }
+
+        @Override
+        public Account next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return accounts[currentIndex++];
+        }
+    }
+
+    // retrieve an iterator for accounts
+    public Iterator<Account> getAccountIterator() {
+        return new AccountIterator();
+    }
+
+    // Accessing accounts using while-loop
+    public void accessAccounts() {
+        Iterator<Account> iterator = getAccountIterator1();
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            // Do something with the account
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+    }
 }
