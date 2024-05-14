@@ -30,10 +30,12 @@ public class Account {
 	return balance;
     }
 
-    public void setBalance(int status) {
-	this.balance = status;
+    public void setBalance(int balance) {
+	this.balance = balance;
     }
 
+    
+    
     /**
      * Withdraws a sum of money from the account
      * 
@@ -43,4 +45,7 @@ public class Account {
 	this.balance = balance - sum;
     }
 
+    
+    
 }
+
