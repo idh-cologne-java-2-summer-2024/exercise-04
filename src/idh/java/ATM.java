@@ -75,6 +75,11 @@ public class ATM {
     public static void main(String[] args) {
 	ATM atm = new ATM();
 	atm.run();
+	
+/*	AccountIterator iter = new AccountIterator(accounts);
+	while (iter.hasNext()) {
+		System.out.println(iter.next().getId());
+	} */
     };
 
     /**
