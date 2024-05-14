@@ -11,6 +11,7 @@ public class ATM {
 
     // accounts known to the ATM
     Account[] accounts = new Account[5];
+    Bank bank;
 
     public ATM() {
 	// create accounts with varying balances
@@ -18,6 +19,7 @@ public class ATM {
 	for (int i = 0; i < accounts.length; i++) {
 	    accounts[i] = new Account(i, random.nextInt(1000));
 	}
+	
     }
 
     /**
@@ -74,11 +76,15 @@ public class ATM {
      */
     public static void main(String[] args) {
 		ATM atm = new ATM();
+		Bank bank = new Bank();
 		atm.run();
 		
 		AccountIterator aIter = new AccountIterator(atm);
 		while (aIter.hasNext()) {
 			System.out.println(aIter.next());
+		}
+		for (Account account : bank) {
+			System.out.println(account.id);
 		}
     };
 
