@@ -9,39 +9,32 @@ public class ATM {
 
     // initial cash in the ATM
     int cash = 100;
-
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
-
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
-    }
+    Bank[] bankNetwork=new Bank[4];
+    Bank atmBank;
 
    
-    class AccountIterator implements Iterator<Account>{
-    	Account[]bank_accounts; 
-    	int c=0;
+    public ATM(int bankId) {
+    	Account[] bankAccounts= new Account[4];
+		bankAccounts[0]=  new Account(1234, 5000); 
+	    bankAccounts[1] = new Account(9876, 20000); 
+		bankAccounts[2] = new Account(7654, 50); 
+		bankAccounts[3] = new Account(4321, 966745656);
+	    
+		bankNetwork[0]= new Bank(3412, bankAccounts);
+		bankNetwork[1]= new Bank(1204, bankAccounts);
+		bankNetwork[2]= new Bank(1254, bankAccounts);
+		bankNetwork[3]= new Bank(1234, bankAccounts);
     	
-		AccountIterator(Account[]bank_account) {
-			this.bank_accounts=bank_account; 
-		}
-		
-		public boolean hasNext() {
-			if (c>=bank_accounts.length) {
-				return true; 	
-			}
-			return false;
-		}
-
-		public Account next() {
-			return this.bank_accounts[c++] ;
-		}
     	
+    	for(int i=0; i<bankNetwork.length; i++) {
+    		if (bankId==bankNetwork[i].bankID) {
+    			this.atmBank=bankNetwork[i];
+    		}
+    	}
     }
+    	
+
+
     
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -72,40 +65,32 @@ public class ATM {
 	    return;
 	}
 			
-	
-
-	AccountIterator aIter= new AccountIterator (this.accounts);
-	Account account = null;
-	while(aIter.hasNext()){
-		account=aIter.next(); 
-		if(accountNumber== account.id) {
-			break;
-		}
-		else account=null; 
-	}
-	if (account==null) {
+	for (Account account:this.atmBank) {
+		
+		if( accountNumber== account.getId()) {}
+			if (amount > account.getBalance()) {
+			    System.out.println("Sorry, you're out of money.");
+			    return;
+			}
+		    else {
+			    account.withdraw(amount);
+				cash += amount;
+				System.out.println("Ok, here is your money, enjoy!");
+				return;
+		    }
+		}		
+				
 		System.out.println("Sorry, this account does not exists.");
 		return; 
 	}
-			
-	// check for balance of the account
-	if (amount > account.getBalance()) {
-	    System.out.println("Sorry, you're out of money.");
-	    return;
-	}
-
-	// withdraw
-	account.withdraw(amount);
-	cash += amount;
-	System.out.println("Ok, here is your money, enjoy!");
-
-    };
 
     /**
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
+    	
+	
+	ATM atm = new ATM(1234);
 	atm.run();
 	 
 			
