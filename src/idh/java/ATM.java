@@ -73,8 +73,13 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
+		ATM atm = new ATM();
+		atm.run();
+		
+		AccountIterator aIter = new AccountIterator(atm);
+		while (aIter.hasNext()) {
+			System.out.println(aIter.next());
+		}
     };
 
     /**
