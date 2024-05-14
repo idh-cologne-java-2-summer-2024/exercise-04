@@ -7,20 +7,9 @@ import java.util.Random;
 public class ATM {
 
     // initial cash in the ATM
-    int cash = 100;
-
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
+    int cash = 500;
     
-    AccountIterator iter = new AccountIterator(accounts);
-
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
-    }
+    Bank bank = new Bank();
 
     /**
      * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -28,6 +17,7 @@ public class ATM {
      * produces money. If the user enters anything else than an integer number, the
      * loop breaks and the program exists
      */
+    
     public void run() {
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	while (true) {
@@ -40,8 +30,8 @@ public class ATM {
 	    } catch (Exception e) {
 		e.printStackTrace();
 		break;
-	    }
-	}
+	    	}
+		}
     }
 
     public void cashout(int accountNumber, int amount) {
@@ -86,9 +76,9 @@ public class ATM {
      * @return
      */
     protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
+	for (int i = 0; i < bank.accounts.length; i++) {
+	    if (bank.accounts[i].getId() == id)
+		return bank.accounts[i];
 	}
 	return null;
     }

@@ -13,16 +13,13 @@ public class AccountIterator implements Iterator<Account>{
 	}
 
 
-	@Override
 	public boolean hasNext() {
 		return currentPosition < account.length -1;
 	}
 
 
-	@Override
 	public Account next() {
-		// TODO Auto-generated method stub
-		return null;
+		return account[currentPosition++];
 	}
 	
 }
