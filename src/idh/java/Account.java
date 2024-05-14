@@ -14,24 +14,24 @@ public class Account {
     int id;
 
     public Account(int id, int status) {
-	this.id = id;
-	this.balance = status;
+    	this.id = id;
+    	this.balance = status;
     }
 
     public int getId() {
-	return id;
+    	return id;
     }
 
     public void setId(int id) {
-	this.id = id;
+    	this.id = id;
     }
 
     public int getBalance() {
-	return balance;
+    	return balance;
     }
 
     public void setBalance(int status) {
-	this.balance = status;
+    	this.balance = status;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Account {
      * @param sum
      */
     public void withdraw(int sum) {
-	this.balance = balance - sum;
+    	this.balance = balance - sum;
     }
 
 }
