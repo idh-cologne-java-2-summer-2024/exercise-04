@@ -11,26 +11,15 @@ public class ATM {
 	int cash = 100;
 	int nextPosition = 0;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	private Bank bank;
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank) {
+		this.bank = bank;
+		
 	}
 	// this.accounts = new Account(nextPosition);
 
-	public void addAccount() throws Exception {
-		if (nextPosition < accounts.length) {
-			Random random = new Random();
-			accounts[nextPosition++] = new Account(nextPosition, random.nextInt(1000));
-		} else
-			throw new Exception("Accountsystem full");
-
-	}
+	
 
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -42,9 +31,9 @@ public class ATM {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
-			AccountIterator iter = new AccountIterator(accounts);
+			
 			try {
-				while (iter.hasNext()) {
+				while (true) {
 
 					System.out.print("Enter your account number: ");
 					int accountNumber = Integer.parseInt(br.readLine());
@@ -90,7 +79,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank kasse = new Bank(250);
+		ATM atm = new ATM(kasse);
 
 		atm.run(atm);
 	};
@@ -102,19 +92,14 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		AccountIterator accIter = new AccountIterator(accounts);
-		while (accIter.hasNext()) {
-			Account current = accIter.next();
-			if (current.id == id) {
-				return current;
-
+		for(Account account : bank) {
+			if(account.id == id) {
+				return account;
 			}
+			
 		}
 		return null;
 	}
 
-	public int getSize() {
-		return accounts.length;
-	}
-
+	
 }
