@@ -11,6 +11,8 @@ public class ATM {
 
     // accounts known to the ATM
     Account[] accounts = new Account[5];
+    
+    AccountIterator iter = new AccountIterator(accounts);
 
     public ATM() {
 	// create accounts with varying balances
