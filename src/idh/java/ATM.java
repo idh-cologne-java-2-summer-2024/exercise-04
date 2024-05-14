@@ -10,15 +10,11 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+    Bank bank;
+	public ATM( Bank bank) {
+		this.bank = bank;
 		}
-	}
+	
 
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -73,7 +69,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank sparkasse = new Bank(250);
+		ATM atm = new ATM(sparkasse);
 		atm.run();
 	};
 
@@ -84,11 +81,9 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		AccountIterator accountIterator = new AccountIterator(accounts);
-		while(iter.hasNext()) {
-			Account current = iter.next();
-			if(current.id == id) {
-				return current;
+		for (Account account : bank) {
+			if(account.id == id) {
+				return account;
 			}
 		} 
 		return null;
