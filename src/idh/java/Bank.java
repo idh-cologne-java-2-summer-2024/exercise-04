@@ -1,9 +1,10 @@
 package idh.java;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Bank {
+public class Bank implements Iterable<Account>{
     private List<Account> accounts;
 
     public Bank() {
@@ -16,5 +17,10 @@ public class Bank {
 
     public List<Account> getAccounts() {
         return accounts;
+    }
+    
+    @Override
+    public Iterator<Account> iterator() {
+    	return accounts.iterator();
     }
 }

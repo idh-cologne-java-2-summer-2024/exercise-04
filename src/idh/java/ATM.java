@@ -21,6 +21,7 @@ public class ATM {
      * produces money. If the user enters anything else than an integer number, the
      * loop breaks and the program exists
      */
+    
     public void run() {
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	while (true) {
@@ -67,11 +68,12 @@ public class ATM {
     
     private Account getAccount(int accountNumber) {
         // Durchsuchen der Konten in der Bank nach der angegebenen Kontonummer
-        for (Account account : bank.getAccounts()) {
+        for (Account account : bank) {
             if (account.getId() == accountNumber) {
                 return account;
             }
         }
         return null; // Konto nicht gefunden
     }
+
 }
