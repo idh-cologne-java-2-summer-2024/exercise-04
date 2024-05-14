@@ -73,7 +73,11 @@ public class ATM {
      * Launches the ATM
      */
     public static void main(String[] args) {
+    	
+   
 	ATM atm = new ATM();
+
+	
 	atm.run();
     };
 
@@ -83,12 +87,21 @@ public class ATM {
      * @param id
      * @return
      */
+    
+    
+    
+    
     protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
+    	AccountIterator iter = new AccountIterator(accounts);
+	
+		while (iter.hasNext()) {
+			Account current = iter.next();
+			if (current.id == id) {
+			return current;
+			}
+		}
+		return null;
 	}
-	return null;
-    }
+	
 
 }
