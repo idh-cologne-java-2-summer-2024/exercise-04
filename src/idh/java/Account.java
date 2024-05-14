@@ -43,4 +43,9 @@ public class Account {
 	this.balance = balance - sum;
     }
 
+	@Override
+	public String toString() {
+		return "Account [balance=" + balance + ", id=" + id + "]";
+	}
+
 }
