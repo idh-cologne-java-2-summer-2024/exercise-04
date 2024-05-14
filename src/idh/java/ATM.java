@@ -12,7 +12,7 @@ public class ATM {
 	// initial cash in the ATM
 	int cash = 100;
 	// accounts known to the ATM
-//	Account[] accounts = new Account[5];
+	//	Account[] accounts = new Account[5];
     ArrayList<Account> accs = new ArrayList<Account>();
     Iterator <Account> it = accs.iterator();
 
