@@ -8,16 +8,12 @@ public class ATM {
 
 	// initial cash in the ATM
 	int cash = 100;
+	
+	private Bank bank;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank ) {
+		this.bank = bank;
+	
 	}
 
 	/**
@@ -73,7 +69,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank sparkasse = new Bank (250);
+		ATM atm = new ATM(sparkasse);
 		atm.run();
 	};
 
@@ -84,16 +81,24 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		AccountIterator iter = new AccountIterator(accounts);
-		while(iter.hasNext()) {
-			Account current = iter.next();
-			if (current.id == id ) {
-				return current;
-			//	gibt gesuchte conto aus 
+		for (Account account : bank) {
+			if(account.id == id ) {
+				return account;
 			}
 		}
 			
+//		AccountIterator iter = new AccountIterator(accounts);
+//		while(iter.hasNext()) {
+//			Account current = iter.next();
+//			if (current.id == id ) {
+//				return current;
+//			//	gibt gesuchte conto aus 
+//			}
+//		}
+			
 		return null;
 	}
-
 }
+
+
+
