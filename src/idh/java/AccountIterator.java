@@ -25,7 +25,7 @@ public class AccountIterator extends ATM implements Iterator<Account> {
 AccountIterator iter = new AccountIterator(accounts[currentPosition]);{
 		
 		while (iter.hasNext()) {
-		    getAccount(currentPosition);
+		    iter.next().getAccount(currentPosition);
 			
 		}
 
