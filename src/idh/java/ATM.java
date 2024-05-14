@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class ATM {
+public class ATM implements Iterable<Account> {{
 
+	for (Account account : bank) {
+		System.out.println(account);
+	}
+	}
+	
     // initial cash in the ATM
     int cash = 100;
 
