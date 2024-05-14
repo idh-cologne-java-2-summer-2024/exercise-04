@@ -8,30 +8,31 @@ import java.util.Random;
 
 //TODO: implement Iterator-class Methods
 public class ATM {
+	
 	AccountIterator accIT = new AccountIterator();
 	// initial cash in the ATM
 	int cash = 100;
 	// accounts known to the ATM
-	//	Account[] accounts = new Account[5];
-    ArrayList<Account> accs = new ArrayList<Account>();
-    Iterator <Account> it = accs.iterator();
-
+	// Account[] accounts = new Account[5];
+	ArrayList<Account> accs = new ArrayList<Account>();
+	Iterator<Account> it = accs.iterator();
+	Bank bank = new Bank("Targo", accs);
 	/**
 	 * create accounts with varying balances, each account is assigned an ID(i) and
 	 * a random balance(random.nextInt)
-	 * @apiNote right now, the accounts created in the seem to disappear the moment the <code>run()-method</code> is called
+	 * 
+	 * @apiNote right now, the accounts created in the seem to disappear the moment
+	 *          the <code>run()-method</code> is called
 	 */
-	
-	public ATM() {
 
+	public ATM(Bank bank) {
+		this.bank = bank;
 		Random random = new Random();
-//	for (int i = 0; i < accounts.length; i++) {
 //		Create 10 Account Objects
 		int id = 0;
 		while (accIT.hasNext() && id <= 10) {
-		accs.add((new Account(id,random.nextInt(100))));
-		id++;
-//			accs[accIT.pos] = new Account(accIT.pos, random.nextInt(1000));
+			accs.add((new Account(id, random.nextInt(100))));
+			id++;
 		}
 	}
 
@@ -40,15 +41,18 @@ public class ATM {
 	 * number to the function cashout(...) which actually does the calculation and
 	 * produces money. If the user enters anything else than an integer number, the
 	 * loop breaks and the program exists
-	 * @apiNote added the current balance of the account that is being chosen by the user
+	 * 
+	 * @apiNote added the current balance of the account that is being chosen by the
+	 *          user
 	 */
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				System.out.print("There are " + accs.size() + "accounts registered"+ "Enter your account number: ");
+				System.out.print("There are " + accs.size() + " accounts registered" + " Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Current balance: " + accs.get(accountNumber).balance + "\nEnter the amount to withdraw: ");
+				System.out.print(
+						"Current balance: " + accs.get(accountNumber).balance + "\nEnter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
 				cashout(accountNumber, amount);
 			} catch (Exception e) {
@@ -89,10 +93,18 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		
+		ArrayList<Account> accsSpar = new ArrayList<Account>();
+		accsSpar.add(0, new Account(1,100));
+		accsSpar.add(1, new Account(2,100));
+
+		
+		Bank bank1 = new Bank("Sparkasse", accsSpar) ;
+		
+		ATM atm = new ATM(bank1);
 //		System.out.println(atm.accs.get(0).balance); //this seems to work
 		atm.run();
-			
+
 	};
 
 	/**
@@ -104,9 +116,9 @@ public class ATM {
 	protected Account getAccount(int id) {
 //		for (int i = 0; i < accounts.length; i++) {
 //		iterate over ArrayList
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 //			if (accounts[i].getId() == id)
-			if(accs.contains(accs.get(id)))
+			if (accs.contains(accs.get(id)))
 				return accs.get(id);
 		}
 		return accs.get(id);
