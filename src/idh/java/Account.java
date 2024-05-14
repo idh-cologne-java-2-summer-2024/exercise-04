@@ -12,10 +12,10 @@ public class Account {
 
     // the id of the account
     int id;
-    //balance war mal status vor her 
-    public Account(int id, int balance) {
+     
+    public Account(int id, int status) {
 	this.id = id;
-	this.balance = balance;
+	this.balance = status;
     }
 
     public int getId() {
