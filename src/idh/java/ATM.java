@@ -9,15 +9,10 @@ public class ATM {
 	// initial cash in the ATM
 	int cash = 100;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	Bank bank;
+	
+	public ATM(Bank bank) {
+		this.bank = bank;
 	}
 
 	/**
@@ -73,17 +68,19 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank bank1 = new Bank(200);
+		ATM atm = new ATM(bank1);
 		atm.run();
 	}
 
 	
 	
 	protected Account getAccount(int id) {
-		AccountIterator accIterator = new AccountIterator(accounts);
-
-		while (accIterator.hasNext()) {
-			System.out.println(accIterator.next().getId());
+		
+		for (Account account : bank) {
+			if(account.id ==id) {
+				return account;
+			}
 		}
 
 		return null;
