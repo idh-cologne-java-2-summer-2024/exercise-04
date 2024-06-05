@@ -2,22 +2,16 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
-
     // initial cash in the ATM
     int cash = 100;
 
-    // accounts known to the ATM
-    Account[] accounts = new Account[5];
+    // reference to the bank
+    private Bank bank;
 
-    public ATM() {
-	// create accounts with varying balances
-	Random random = new Random();
-	for (int i = 0; i < accounts.length; i++) {
-	    accounts[i] = new Account(i, random.nextInt(1000));
-	}
+    public ATM(Bank bank) {
+        this.bank = bank;
     }
 
     /**
@@ -27,68 +21,63 @@ public class ATM {
      * loop breaks and the program exists
      */
     public void run() {
-	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	while (true) {
-	    try {
-		System.out.print("Enter your account number: ");
-		int accountNumber = Integer.parseInt(br.readLine());
-		System.out.print("Enter the amount to withdraw: ");
-		int amount = Integer.parseInt(br.readLine());
-		cashout(accountNumber, amount);
-	    } catch (Exception e) {
-		e.printStackTrace();
-		break;
-	    }
-	}
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            try {
+                System.out.print("Enter your account number: ");
+                int accountNumber = Integer.parseInt(br.readLine());
+                System.out.print("Enter the amount to withdraw: ");
+                int amount = Integer.parseInt(br.readLine());
+                cashout(accountNumber, amount);
+            } catch (Exception e) {
+                e.printStackTrace();
+                break;
+            }
+        }
     }
 
     public void cashout(int accountNumber, int amount) {
-	// check for cash in the ATM
-	if (amount > cash) {
-	    System.out.println("Sorry, not enough cash left.");
-	    return;
-	}
+        // check for cash in the ATM
+        if (amount > cash) {
+            System.out.println("Sorry, not enough cash left.");
+            return;
+        }
 
-	// check for existence of the account
-	Account account = getAccount(accountNumber);
-	if (account == null) {
-	    System.out.println("Sorry, this account doesn't exist.");
-	    return;
-	}
+        // check for existence of the account
+        Account account = bank.getAccount(accountNumber);
+        if (account == null) {
+            System.out.println("Sorry, this account doesn't exist.");
+            return;
+        }
 
-	// check for balance of the account
-	if (amount > account.getBalance()) {
-	    System.out.println("Sorry, you're out of money.");
-	    return;
-	}
+        // check for balance of the account
+        if (amount > account.getBalance()) {
+            System.out.println("Sorry, you're out of money.");
+            return;
+        }
 
-	// withdraw
-	account.withdraw(amount);
-	cash += amount;
-	System.out.println("Ok, here is your money, enjoy!");
-
-    };
+        // withdraw
+        account.withdraw(amount);
+        cash += amount;
+        System.out.println("Ok, here is your money, enjoy!");
+    }
 
     /**
      * Launches the ATM
      */
     public static void main(String[] args) {
-	ATM atm = new ATM();
-	atm.run();
-    };
-
-    /**
-     * Retrieves the account given an id.
-     * 
-     * @param id
-     * @return
-     */
-    protected Account getAccount(int id) {
-	for (int i = 0; i < accounts.length; i++) {
-	    if (accounts[i].getId() == id)
-		return accounts[i];
-	}
-	return null;
+        Bank bank = new Bank(5);
+        ATM atm = new ATM(bank);
+        atm.run();
     }
 
+    /**
+     * Displays all accounts using the Bank's iterator
+     */
+    public void displayAccounts() {
+        for (Account account : bank) {
+            System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+        }
+    }
 }
+
