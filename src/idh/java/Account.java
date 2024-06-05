@@ -13,9 +13,9 @@ public class Account {
     // the id of the account
     int id;
 
-    public Account(int id, int status) {
+    public Account(int id, int balance) {
 	this.id = id;
-	this.balance = status;
+	this.balance = balance;
     }
 
     public int getId() {
@@ -30,8 +30,8 @@ public class Account {
 	return balance;
     }
 
-    public void setBalance(int status) {
-	this.balance = status;
+    public void setBalance(int balance) {
+	this.balance = balance;
     }
 
     /**
